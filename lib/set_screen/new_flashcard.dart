@@ -16,11 +16,11 @@ class _NewFlashcardPageState extends State<NewFlashcardPage> {
   final _formKey = GlobalKey<FormState>();
   Flashcard? flashcard;
 
-  String? question;
+  String question = '';
 
   // For "ABC" type
   List<String> answers = []; 
-  String? correct;      
+  String correct = '';      
   String? wrong1;
   String? wrong2;
   String? wrong3;
@@ -97,7 +97,7 @@ class _NewFlashcardPageState extends State<NewFlashcardPage> {
                                 ),
                               ),
                               validator: (value) => value == null || value.isEmpty ? 'Please enter a question' : null,
-                              onSaved: (value) => question = value,
+                              onSaved: (value) => question = value!,
                             ),
                           ),
                           const Text(
@@ -114,11 +114,8 @@ class _NewFlashcardPageState extends State<NewFlashcardPage> {
                               ),
                               validator: (value) => value == null || value.isEmpty ? 'Please enter a correct answer' : null,
                               onSaved: (value) {
-                                correct = value;
-                                if (correct != null)
-                                {
-                                  answers.add(correct!);
-                                }
+                                correct = value!;
+                                answers.add(correct);
                               }
                             ),
                           ),
@@ -185,6 +182,19 @@ class _NewFlashcardPageState extends State<NewFlashcardPage> {
                               },
                             ),
                           ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10.0, bottom: 10.0, right: 40.0),
+                            child: FloatingActionButton.extended(
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  _formKey.currentState!.save();
+                                  flashcard = Flashcard(type: "ABC", question: question, answers: answers, correct: correct, text: text, gap: gap);
+                                  Navigator.pop(context, flashcard);
+                                }
+                              },
+                              label: const Text("Add this flashcard"),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -195,15 +205,6 @@ class _NewFlashcardPageState extends State<NewFlashcardPage> {
             const Text("temp"),
           ],
         ),
-
-
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-          },
-          label: const Text('Add this flashcard'),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      
       ),
     );
   }

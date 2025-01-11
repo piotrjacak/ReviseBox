@@ -40,6 +40,8 @@ dependencies:
   hive: ^2.0.0
   hive_flutter: ^1.1.0
 
+  syncfusion_flutter_charts: ^28.1.38
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

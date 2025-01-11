@@ -5,7 +5,7 @@ import 'package:revise_box/classes/flashcard.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import 'package:revise_box/screens/new_flashcard.dart';
+import 'package:revise_box/set_screen/new_flashcard.dart';
 
 class NewSetPage extends StatefulWidget {
   const NewSetPage({super.key, required this.setsCount});
@@ -25,18 +25,18 @@ class _NewSetPageState extends State<NewSetPage> {
 
   List<Flashcard> flashcards = [];
 
-  Future addFlashCard(int id, String title, String subtitle, bool finished, bool favourite, List<Flashcard> flashcards) async {
+  Future addSet(int id, String title, String subtitle, bool finished, bool favourite, List<Flashcard> flashcards) async {
     final set = FlashcardSet(
       id: id, 
       title: title,
       subtitle: subtitle,
       finished: finished,
       favourite: favourite,
-      cards: flashcards,
+      cards: List.from(flashcards),
     );
 
     final box = Hive.box<FlashcardSet>("flashcardsSetBox");
-    box.add(set);
+    box.put(id, set);
   }
 
   @override
@@ -47,6 +47,34 @@ class _NewSetPageState extends State<NewSetPage> {
           title: const Text(
             "New set",
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          ),
+          leading: BackButton(
+            onPressed: () => showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: const Text(
+                    "Are you sure?",
+                    style: TextStyle(fontSize: 18.0)
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                      }, 
+                      child: const Text("Yes"),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      }, 
+                      child: const Text("No"),
+                    ),
+                  ],
+                );
+              }
+            ),
           ),
         ),
         
@@ -103,11 +131,17 @@ class _NewSetPageState extends State<NewSetPage> {
                               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                             ),
                             IconButton(
-                              onPressed: () {
-                                Navigator.push(
+                              onPressed: () async {
+                                final newFlashcard = await Navigator.push<Flashcard>(
                                   context,
                                   MaterialPageRoute(builder: (context) => const NewFlashcardPage()),
                                 );
+
+                                if (newFlashcard != null) {
+                                  setState(() {
+                                    flashcards.add(newFlashcard);
+                                  });
+                                }
                               }, 
                               icon: const Icon(Icons.add),
                             )
@@ -141,7 +175,8 @@ class _NewSetPageState extends State<NewSetPage> {
                                     ),
                                   ),
                                   Text(
-                                    flashcard.question.substring(0, 20),
+                                    flashcard.question.length >= 20 ? "${flashcard.question.substring(0, 20)}..." : "${flashcard.question}...",
+                                    //"Anything",
                                     style: const TextStyle(
                                       fontSize: 12,
                                       color: Colors.grey,
@@ -153,9 +188,34 @@ class _NewSetPageState extends State<NewSetPage> {
                                 icon: const Icon(
                                   Icons.delete,
                                 ),
-                                onPressed: () {
-                                  setState(() {});
-                                },
+                                onPressed: () => showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: const Text(
+                                        "Are you sure?",
+                                        style: TextStyle(fontSize: 18.0)
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              flashcards.remove(flashcard);
+                                            });
+                                            Navigator.pop(context);
+                                          }, 
+                                          child: const Text("Yes"),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          }, 
+                                            child: const Text("No"),
+                                        ),
+                                      ],
+                                    );
+                                  }
+                                ),
                               ),
                             ],
                           )
@@ -175,7 +235,7 @@ class _NewSetPageState extends State<NewSetPage> {
           onPressed: () {
             if (_formKey.currentState!.validate()) {
               _formKey.currentState!.save();
-              addFlashCard(widget.setsCount, newTitle!, newSubtitle!, false, false, flashcards);
+              addSet(widget.setsCount, newTitle!, newSubtitle!, false, false, flashcards);
               Navigator.pop(context);
             }
           },
