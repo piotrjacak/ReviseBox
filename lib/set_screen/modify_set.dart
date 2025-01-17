@@ -7,6 +7,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import 'package:revise_box/set_screen/new_flashcard.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class ModifySetPage extends StatefulWidget {
   const ModifySetPage({super.key, required this.set});
 
@@ -55,8 +57,7 @@ class _ModifySetPageState extends State<ModifySetPage> {
               _formKey.currentState!.save();
               modifySet();
               Navigator.pop(context);
-              setState(() {
-              });
+              setState(() {});
             }
           },
         ),
@@ -71,10 +72,10 @@ class _ModifySetPageState extends State<ModifySetPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      "Title",
-                      style:
-                          TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                    Text(
+                      AppLocalizations.of(context)!.title,
+                      style: const TextStyle(
+                          fontSize: 13, fontWeight: FontWeight.bold),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
@@ -92,10 +93,10 @@ class _ModifySetPageState extends State<ModifySetPage> {
                         onSaved: (value) => widget.set.title = value!,
                       ),
                     ),
-                    const Text(
-                      "Subtitle",
-                      style:
-                          TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                    Text(
+                      AppLocalizations.of(context)!.subtitle,
+                      style: const TextStyle(
+                          fontSize: 13, fontWeight: FontWeight.bold),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
@@ -115,9 +116,9 @@ class _ModifySetPageState extends State<ModifySetPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
-                            "Flashcards",
-                            style: TextStyle(
+                          Text(
+                            AppLocalizations.of(context)!.flashcards,
+                            style: const TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 18),
                           ),
                           IconButton(
@@ -163,7 +164,7 @@ class _ModifySetPageState extends State<ModifySetPage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Question ${index + 1}",
+                                    "${AppLocalizations.of(context)!.question} ${index + 1}",
                                     style: const TextStyle(
                                         fontSize: 17,
                                         fontWeight: FontWeight.bold),
@@ -171,8 +172,7 @@ class _ModifySetPageState extends State<ModifySetPage> {
                                   Text(
                                     flashcard.question.length >= 20
                                         ? "${flashcard.question.substring(0, 20)}..."
-                                        : "${flashcard.question}...",
-                                    //"Anything",
+                                        : flashcard.question,
                                     style: const TextStyle(
                                       fontSize: 12,
                                       color: Colors.grey,
@@ -185,31 +185,31 @@ class _ModifySetPageState extends State<ModifySetPage> {
                                   Icons.delete,
                                 ),
                                 onPressed: () => showDialog(
-                                  context: context,
-                                  builder: (context) {
+                                    context: context,
+                                    builder: (context) {
                                       return AlertDialog(
-                                      title: const Text("Are you sure?",
-                                          style: TextStyle(fontSize: 18.0)),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              widget.set.cards.remove(flashcard);
-                                            });
-                                            Navigator.pop(context);
-                                          },
-                                          child: const Text("Yes"),
-                                        ),
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: const Text("No"),
-                                        ),
-                                      ],
-                                    );
-                                  }
-                                ),
+                                        title: const Text("Are you sure?",
+                                            style: TextStyle(fontSize: 18.0)),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                widget.set.cards
+                                                    .remove(flashcard);
+                                              });
+                                              Navigator.pop(context);
+                                            },
+                                            child: const Text("Yes"),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: const Text("No"),
+                                          ),
+                                        ],
+                                      );
+                                    }),
                               ),
                             ],
                           )),
@@ -229,7 +229,7 @@ class _ModifySetPageState extends State<ModifySetPage> {
           Navigator.pop(context);
           setState(() {});
         },
-        label: const Text('Mark as finished'),
+        label: Text(AppLocalizations.of(context)!.markAsFinished),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );

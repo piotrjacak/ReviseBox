@@ -1,0 +1,161 @@
+{
+    "@@locale": "en",
+    
+    "language": "English",
+    "@language": {
+        "description": "The current language"
+    },
+    "sets": "Sets",
+    "@sets": {
+        "description": "Sets"
+    },
+    "revise": "Revise",
+    "@revise": {
+        "description": "Revise"
+    },
+    "test": "Test",
+    "@test": {
+        "description": "Test"
+    },
+    "profile": "Profile",
+    "@profile": {
+        "description": "Profile"
+    },
+
+    "all": "All",
+    "@all": {
+        "description": "All"
+    },
+    "finished": "Finished",
+    "@finished": {
+        "description": "Finished"
+    },
+    "createNewSet": "Create new set",
+    "@createNewSet": {
+        "description": "Button for creating new set"
+    },
+
+    "newSet": "New Set",
+    "@newSet": {
+        "description": "New Set"
+    },
+    "title": "Title",
+    "@title": {
+        "description": "Title"
+    },
+    "subtitle": "Subtitle",
+    "@subtitle": {
+        "description": "Subtitle"
+    },
+    "enter": "Enter",
+    "@enter": {
+        "description": "Enter"
+    },
+    "flashcards": "Flashcards",
+    "@flashcards": {
+        "description": "Flashcards"
+    },
+    "addNewSet": "Add new set",
+    "@addNewSet": {
+        "description": "Add new set"
+    },
+
+    "addNewFlashcard": "Add new flashcard",
+    "@addNewFlashcard": {
+        "description": "Add new flashcard"
+    },
+    "text": "Text",
+    "@text": {
+        "description": "Text"
+    },
+    "question": "Question",
+    "@question": {
+        "description": "Question"
+    },
+    "correct": "Correct",
+    "@correct": {
+        "description": "Correct"
+    },
+    "answer": "answer",
+    "@answer": {
+        "description": "Answer"
+    },
+    "wrong": "Wrong",
+    "@wrong": {
+        "description": "Wrong"
+    },
+    "addThisFlashcard": "Add this flashcard",
+    "@addThisFlashcard": {
+        "description": "Add this flashcard"
+    },
+
+    "areYouSure": "Are you sure?",
+    "@areYouSure": {
+        "description": "Are you sure?"
+    },
+    "yes": "Yes",
+    "@yes": {
+        "description": "Yes"
+    },
+    "no": "No",
+    "@no": {
+        "description": "No"
+    },
+    "markAsFinished": "Mark as finished",
+    "@markAsFinished": {
+        "description": "Mark as finished"
+    },
+
+    "selectSetForRevision": "Select set for a revision",
+    "@selectSetForRevision": {
+        "description": "Select set for a revision"
+    },
+    "previousCard": "Previous flashcard",
+    "@previousCard": {
+        "description": "Previous flashcard"
+    },
+    "easy": "Easy",
+    "@easy": {
+        "description": "Easy"
+    },
+    "hard": "Hard",
+    "@hard": {
+        "description": "Hard"
+    },
+    "results": "Results",
+    "@results": {
+        "description": "Results"
+    },
+    "goback": "Go Back",
+    "@goback": {
+        "description": "Go Back"
+    },
+
+    "selectSetForTest": "Select set for a test",
+    "@selectSetForTest": {
+        "description": "Select set for a test"
+    },
+    "testResults": "Test results",
+    "@testResults": {
+        "description": "Test results"
+    },
+    "next": "Next",
+    "@next": {
+        "description": "Next"
+    },
+
+    "settings": "Settings",
+    "@settings": {
+        "description": "Settings"
+    },
+    "changeLanguage": "Change language",
+    "@changeLanguage": {
+        "description": "Change language"
+    },
+    "signOut": "Sign out",
+    "@signOut": {
+        "description": "Sign out"
+    }
+
+
+}

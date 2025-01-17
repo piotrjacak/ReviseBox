@@ -1,35 +1,34 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class RevisionResultPage extends StatefulWidget {
-  const RevisionResultPage(
-      {super.key, required this.setTitle, required this.isEasyResults});
+class TestResultPage extends StatefulWidget {
+  const TestResultPage(
+      {super.key, required this.setTitle, required this.isCorrectResults});
 
   final String setTitle;
-  final Map<int, bool> isEasyResults;
+  final Map<int, bool> isCorrectResults;
 
   @override
-  State<RevisionResultPage> createState() => _RevisionResultPageState();
+  State<TestResultPage> createState() => _TestResultPageState();
 }
 
-class _RevisionResultPageState extends State<RevisionResultPage> {
+class _TestResultPageState extends State<TestResultPage> {
   @override
   Widget build(BuildContext context) {
     double easyResult =
-        widget.isEasyResults.values.where((value) => value).length /
-            widget.isEasyResults.length *
+        widget.isCorrectResults.values.where((value) => value).length /
+            widget.isCorrectResults.length *
             100;
     double hardResult =
-        widget.isEasyResults.values.where((value) => !value).length /
-            widget.isEasyResults.length *
+        widget.isCorrectResults.values.where((value) => !value).length /
+            widget.isCorrectResults.length *
             100;
 
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-            AppLocalizations.of(context)!.results,
+            AppLocalizations.of(context)!.testResults,
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
           ),
           automaticallyImplyLeading: false,
@@ -66,8 +65,7 @@ class _RevisionResultPageState extends State<RevisionResultPage> {
                               child: Container(
                                 height: 100,
                                 decoration: BoxDecoration(
-                                  color:
-                                      const Color.fromARGB(156, 76, 154, 255),
+                                  color: Colors.green.shade300,
                                   borderRadius: BorderRadius.circular(16.0),
                                 ),
                                 child: Row(
@@ -78,7 +76,7 @@ class _RevisionResultPageState extends State<RevisionResultPage> {
                                       padding:
                                           const EdgeInsets.only(left: 40.0),
                                       child: Text(
-                                        AppLocalizations.of(context)!.easy,
+                                        AppLocalizations.of(context)!.correct,
                                         style: const TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold,
@@ -105,7 +103,7 @@ class _RevisionResultPageState extends State<RevisionResultPage> {
                               child: Container(
                                 height: 100,
                                 decoration: BoxDecoration(
-                                  color: Colors.red.shade200,
+                                  color: Colors.red.shade300,
                                   borderRadius: BorderRadius.circular(16.0),
                                 ),
                                 child: Row(
@@ -116,7 +114,7 @@ class _RevisionResultPageState extends State<RevisionResultPage> {
                                       padding:
                                           const EdgeInsets.only(left: 40.0),
                                       child: Text(
-                                        AppLocalizations.of(context)!.hard,
+                                        AppLocalizations.of(context)!.wrong,
                                         style: const TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold,

@@ -6,6 +6,8 @@ import 'package:revise_box/classes/flashcard.dart';
 import 'package:revise_box/classes/flashcard_set.dart';
 import 'package:revise_box/revise_screen/revision_result.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class RevisionModePage extends StatefulWidget {
   const RevisionModePage({super.key, required this.set});
 
@@ -15,22 +17,25 @@ class RevisionModePage extends StatefulWidget {
   State<RevisionModePage> createState() => _RevisionModePageState();
 }
 
-class _RevisionModePageState extends State<RevisionModePage> with TickerProviderStateMixin {
-
+class _RevisionModePageState extends State<RevisionModePage>
+    with TickerProviderStateMixin {
   late AnimationController flipController;
   late Animation flipAnimation;
   AnimationStatus flipStatus = AnimationStatus.dismissed;
 
   int flashcardIdx = 0;
 
-  Map<int, bool> isEasyResults = {};
+  List<String> answers = [];
+  bool initialize = true;
 
+  Map<int, bool> isEasyResults = {};
 
   @override
   void initState() {
     super.initState();
-    
-    flipController = AnimationController(vsync: this, duration: const Duration(milliseconds: 600));
+
+    flipController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 600));
     flipAnimation = Tween(end: 1.0, begin: 0.0).animate(flipController)
       ..addListener(() {
         setState(() {});
@@ -41,9 +46,12 @@ class _RevisionModePageState extends State<RevisionModePage> with TickerProvider
   }
 
   Widget buildFlashcard(Flashcard flashcard) {
-    List<String> answers = [flashcard.correct, ...flashcard.answers];
-    answers.shuffle(Random());
-    answers = answers.toSet().toList();
+    if (initialize) {
+      answers = [flashcard.correct, ...flashcard.answers];
+      answers.shuffle(Random());
+      answers = answers.toSet().toList();
+      initialize = false;
+    }
 
     return Transform(
       alignment: FractionalOffset.center,
@@ -51,141 +59,141 @@ class _RevisionModePageState extends State<RevisionModePage> with TickerProvider
         ..setEntry(2, 1, 0.0015)
         ..rotateY(pi * flipAnimation.value),
       child: InkWell(
-        child: Card(
-          child: flipAnimation.value <= 0.5
-            ? Padding(
-              padding: const EdgeInsets.only(
-                  top: 10.0, bottom: 30.0, left: 16.0, right: 16.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(bottom: 10.0), 
-                    height: 20,
-                    child: Center(
-                      child: Text(
-                        "Question ${flashcardIdx + 1}/${widget.set.cards.length}",
-                        style: const TextStyle(
-                          fontSize: 14, fontWeight: FontWeight.bold,
+          child: Card(
+            child: flipAnimation.value <= 0.5
+                ? Padding(
+                    padding: const EdgeInsets.only(
+                        top: 10.0, bottom: 30.0, left: 16.0, right: 16.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(bottom: 10.0),
+                          height: 20,
+                          child: Center(
+                            child: Text(
+                              "${AppLocalizations.of(context)!.question} ${flashcardIdx + 1}/${widget.set.cards.length}",
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: 100.0,
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade300,
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          child: Center(
+                            child: Text(
+                              flashcard.question,
+                              style: const TextStyle(
+                                  fontSize: 17, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Container(
+                          height: 80.0,
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                  width: 2.0, color: Colors.grey.shade300),
+                            ),
+                          ),
+                          child: Center(
+                            child: Text(
+                              answers[0],
+                              style: const TextStyle(
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: 80.0,
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                  width: 2.0, color: Colors.grey.shade300),
+                            ),
+                          ),
+                          child: Center(
+                            child: Text(
+                              answers.length > 1 ? answers[1] : "",
+                              style: const TextStyle(
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: 80.0,
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                  width: 2.0, color: Colors.grey.shade300),
+                            ),
+                          ),
+                          child: Center(
+                            child: Text(
+                              answers.length > 2 ? answers[2] : "",
+                              style: const TextStyle(
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: 80.0,
+                          color: Colors.grey.shade100,
+                          child: Center(
+                            child: Text(
+                              answers.length > 3 ? answers[3] : "",
+                              style: const TextStyle(
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.only(
+                        top: 30.0, bottom: 30.0, left: 16.0, right: 16.0),
+                    child: Transform.scale(
+                      scaleX: -1,
+                      child: SizedBox(
+                        height: 440,
+                        child: Center(
+                          child: Text(
+                            flashcard.correct,
+                            style: const TextStyle(
+                              fontSize: 19,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                  Container(
-                    height: 100.0,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade300,
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    child: Center(
-                      child: Text(
-                        flashcard.question,
-                        style: const TextStyle(
-                            fontSize: 17, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Container(
-                    height: 80.0,
-                    decoration: BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(width: 2.0, color: Colors.grey.shade300), 
-                      ),
-                    ),
-                    child: Center(
-                      child: Text(
-                        answers[0],
-                        style: const TextStyle(
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: 80.0,
-                    decoration: BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(width: 2.0, color: Colors.grey.shade300), 
-                      ),
-                    ),
-                    child: Center(
-                      child: Text(
-                        answers.length > 1 ? answers[1] : "",
-                        style: const TextStyle(
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: 80.0,
-                    decoration: BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(width: 2.0, color: Colors.grey.shade300), 
-                      ),
-                    ),
-                    child: Center(
-                      child: Text(
-                        answers.length > 2 ? answers[2] : "",
-                        style: const TextStyle(
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: 80.0,
-                    color: Colors.grey.shade100,
-                    child: Center(
-                      child: Text(
-                        answers.length > 3 ? answers[3] : "",
-                        style: const TextStyle(
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            )
-            : Padding(
-                padding: const EdgeInsets.only(
-                  top: 30.0, bottom: 30.0, left: 16.0, right: 16.0
-                ),
-                child: Transform.scale(
-                  scaleX: -1,
-                  child: SizedBox(
-                    height: 440,
-                    child: Center(
-                      child: Text(
-                        flashcard.correct,
-                        style: const TextStyle(
-                          fontSize: 19, fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-            ),
-        ),
-        onTap: () {
-          if (flipStatus == AnimationStatus.dismissed) {
-            flipController.forward();
-          }
-          else {
-            flipController.reverse();
-          }          
-        }
-      ),
+          ),
+          onTap: () {
+            if (flipStatus == AnimationStatus.dismissed) {
+              flipController.forward();
+            } else {
+              flipController.reverse();
+            }
+          }),
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
-  
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -193,7 +201,7 @@ class _RevisionModePageState extends State<RevisionModePage> with TickerProvider
           widget.set.title,
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
         ),
-      ) ,
+      ),
       body: Padding(
           padding: const EdgeInsets.all(30.0),
           child: SingleChildScrollView(
@@ -214,7 +222,7 @@ class _RevisionModePageState extends State<RevisionModePage> with TickerProvider
                         ),
                         child: Center(
                           child: Text(
-                            "Previous card",
+                            AppLocalizations.of(context)!.previousCard,
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
@@ -230,6 +238,7 @@ class _RevisionModePageState extends State<RevisionModePage> with TickerProvider
                           await flipController.reverse();
                         }
                         flashcardIdx -= 1;
+                        initialize = true;
                         setState(() {});
                       }
                     },
@@ -258,10 +267,10 @@ class _RevisionModePageState extends State<RevisionModePage> with TickerProvider
                                 ),
                               ],
                             ),
-                            child: const Center(
+                            child: Center(
                               child: Text(
-                                "Hard",
-                                style: TextStyle(
+                                AppLocalizations.of(context)!.hard,
+                                style: const TextStyle(
                                     fontSize: 15, fontWeight: FontWeight.bold),
                               ),
                             ),
@@ -273,15 +282,15 @@ class _RevisionModePageState extends State<RevisionModePage> with TickerProvider
                                 await flipController.reverse();
                               }
                               flashcardIdx += 1;
+                              initialize = true;
                               setState(() {});
-                            }
-                            else {
+                            } else {
                               Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        RevisionResultPage(setTitle: widget.set.title, isEasyResults: isEasyResults))
-                              );
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => RevisionResultPage(
+                                          setTitle: widget.set.title,
+                                          isEasyResults: isEasyResults)));
                             }
                           },
                         ),
@@ -302,10 +311,10 @@ class _RevisionModePageState extends State<RevisionModePage> with TickerProvider
                                 ),
                               ],
                             ),
-                            child: const Center(
+                            child: Center(
                               child: Text(
-                                "Easy",
-                                style: TextStyle(
+                                AppLocalizations.of(context)!.easy,
+                                style: const TextStyle(
                                     fontSize: 15, fontWeight: FontWeight.bold),
                               ),
                             ),
@@ -316,16 +325,16 @@ class _RevisionModePageState extends State<RevisionModePage> with TickerProvider
                               if (flipStatus != AnimationStatus.dismissed) {
                                 await flipController.reverse();
                               }
+                              initialize = true;
                               flashcardIdx += 1;
                               setState(() {});
-                            }
-                            else {
+                            } else {
                               Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        RevisionResultPage(setTitle: widget.set.title, isEasyResults: isEasyResults))
-                              );
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => RevisionResultPage(
+                                          setTitle: widget.set.title,
+                                          isEasyResults: isEasyResults)));
                             }
                           },
                         ),
@@ -336,6 +345,4 @@ class _RevisionModePageState extends State<RevisionModePage> with TickerProvider
           )),
     );
   }
-
 }
-

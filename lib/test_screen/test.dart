@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 
+import 'package:revise_box/main.dart';
 import 'package:revise_box/classes/flashcard_set.dart';
-import 'package:revise_box/revise_screen/revision_mode.dart';
+import 'package:revise_box/test_screen/test_mode.dart';
 
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-const defaultColor = Color.fromARGB(156, 0, 110, 255);
-
-class RevisePage extends StatefulWidget {
-  const RevisePage({super.key});
+class TestPage extends StatefulWidget {
+  const TestPage({super.key});
 
   @override
-  State<RevisePage> createState() => _RevisePageState();
+  State<TestPage> createState() => _TestPageState();
 }
 
-class _RevisePageState extends State<RevisePage> {
+class _TestPageState extends State<TestPage> {
   late Future<Box<FlashcardSet>> _boxFuture;
 
   @override
@@ -58,7 +57,7 @@ class _RevisePageState extends State<RevisePage> {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                RevisionModePage(set: sets[index])),
+                                TestModePage(set: sets[index])),
                       );
                     },
                     child: Card(
@@ -66,7 +65,6 @@ class _RevisePageState extends State<RevisePage> {
                         padding: const EdgeInsets.only(
                             top: 20.0, bottom: 20.0, left: 40.0, right: 40.0),
                         child: Column(
-                          //crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
                               sets[index].title,
@@ -102,7 +100,7 @@ class _RevisePageState extends State<RevisePage> {
           appBar: AppBar(
             centerTitle: true,
             title: Text(
-              AppLocalizations.of(context)!.selectSetForRevision,
+              AppLocalizations.of(context)!.selectSetForTest,
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
             actions: [
@@ -136,7 +134,9 @@ class _RevisePageState extends State<RevisePage> {
                       tabs: [
                         Tab(child: Text(AppLocalizations.of(context)!.all)),
                         const Tab(child: Text("To-do")),
-                        Tab(child: Text(AppLocalizations.of(context)!.finished)),
+                        Tab(
+                            child:
+                                Text(AppLocalizations.of(context)!.finished)),
                       ]),
                 ),
               ),

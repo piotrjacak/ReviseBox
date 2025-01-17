@@ -30,6 +30,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations: 
+    sdk: flutter
+
+  intl: ^0.19.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -41,6 +45,8 @@ dependencies:
   hive_flutter: ^1.1.0
 
   syncfusion_flutter_charts: ^28.1.38
+  provider: ^6.1.2
+
 
 dev_dependencies:
   flutter_test:
@@ -68,6 +74,7 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  generate: true
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
@@ -87,10 +94,10 @@ flutter:
   fonts:
     - family: Inter
       fonts:
-        - asset: build/flutter_assets/fonts/Inter_18pt-Regular.ttf
-        - asset: build/flutter_assets/fonts/Inter_18pt-Bold.ttf
-        - asset: build/flutter_assets/fonts/Inter_24pt-Regular.ttf
-        - asset: build/flutter_assets/fonts/Inter_28pt-Regular.ttf
+        - asset: fonts/Inter_18pt-Regular.ttf
+        - asset: fonts/Inter_18pt-Bold.ttf
+        - asset: fonts/Inter_24pt-Regular.ttf
+        - asset: fonts/Inter_28pt-Regular.ttf
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf

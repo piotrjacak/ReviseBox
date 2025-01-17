@@ -1,0 +1,48 @@
+{
+    "@@locale": "pl",
+
+    "language": "polski",
+    "sets": "Zestawy",
+    "revise": "Powtórka",
+    "test": "Test",
+    "profile": "Profil",
+    
+    "all": "Wszystkie",
+    "finished": "Ukończone",
+    "createNewSet": "Stwórz nowy zestaw",
+
+    "newSet": "Nowy zestaw",
+    "title": "Tytuł",
+    "subtitle": "Podtytuł",
+    "enter": "Wpisz",
+    "flashcards": "Fiszki",
+    "addNewSet": "Dodaj nowy zestaw",
+
+    "addNewFlashcard": "Dodaj nową fiszkę",
+    "text": "Tekst",
+    "question": "Pytanie",
+    "correct": "Poprawna",
+    "answer": "odpowiedź",
+    "wrong": "Zła",
+    "addThisFlashcard": "Dodaj tą fiszkę",
+
+    "areYouSure": "Czy jesteś pewny?",
+    "yes": "Tak",
+    "no": "Nie",
+    "markAsFinished": "Oznacz jako ukończone",
+
+    "selectSetForRevision": "Wybierz zestaw do powtórki",
+    "previousCard": "Poprzednia fiszka",
+    "easy": "Łatwe",
+    "hard": "Trudne",
+    "results": "Wyniki",
+    "goback": "Powrót",
+
+    "selectSetForTest": "Wybierz zestaw do testu",
+    "testResults": "Wyniki testu",
+    "next": "Następne",
+
+    "settings": "Ustawienia",
+    "changeLanguage": "Zmień język",
+    "signOut": "Wyloguj się"
+}
