@@ -7,10 +7,10 @@ part 'flashcard_set.g.dart';
 class FlashcardSet extends HiveObject {
   @HiveField(0)
   late int id;
-  
+
   @HiveField(1)
   late String title;
-  
+
   @HiveField(2)
   late String subtitle;
 

@@ -136,7 +136,9 @@ class _RevisePageState extends State<RevisePage> {
                       tabs: [
                         Tab(child: Text(AppLocalizations.of(context)!.all)),
                         const Tab(child: Text("To-do")),
-                        Tab(child: Text(AppLocalizations.of(context)!.finished)),
+                        Tab(
+                            child:
+                                Text(AppLocalizations.of(context)!.finished)),
                       ]),
                 ),
               ),
