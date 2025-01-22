@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "267801341445",
+    "project_id": "revisebox-6ff5d",
+    "storage_bucket": "revisebox-6ff5d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:267801341445:android:f538b7425794dcc3f5766c",
+        "android_client_info": {
+          "package_name": "com.example.revise_box"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjxqby-G1QJD6AwXrPZdVTANwnf2P1hys"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

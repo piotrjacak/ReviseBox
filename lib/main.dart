@@ -16,13 +16,12 @@ import 'package:revise_box/l10n/l10n.dart';
 
 const defaultColor = Color.fromARGB(156, 0, 110, 255);
 
-void main() async {
+Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Hive.initFlutter();
   Hive.registerAdapter(FlashcardSetAdapter());
   Hive.registerAdapter(FlashcardAdapter());
-  //await Hive.deleteBoxFromDisk("flashcardsSetBox");
   await Hive.openBox<FlashcardSet>("flashcardsSetBox");
 
   runApp(const MyApp());
