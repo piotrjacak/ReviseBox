@@ -18,7 +18,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Flutter
       - uses: actions/setup-java@v1
         with:
           java-version: "12.x"
