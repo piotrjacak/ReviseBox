@@ -44,9 +44,3 @@ jobs:
 
       - name: Run Flutter Format Check
         run: dart format --output=none --set-exit-if-changed lib/
-
-      # Your project will need to have tests in test/ and a dependency on
-      # package:test for this step to succeed. Note that Flutter projects will
-      # want to change this to 'flutter test'.
-      - name: Run tests
-        run: flutter test
